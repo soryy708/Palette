@@ -4,6 +4,7 @@ import { Color, luminanceToPerceivedLightness, colorToLuminance } from '../color
 type StripeProps = {
     color: Color;
     onRemove: () => void;
+    onReroll: () => void;
 };
 
 const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
@@ -43,6 +44,14 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
                 }}
             >
                 Remove
+            </button>
+            <button
+                type="button"
+                onClick={() => {
+                    props.onReroll();
+                }}
+            >
+                Reroll
             </button>
         </div>
     </div>;

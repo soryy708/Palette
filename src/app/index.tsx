@@ -4,20 +4,47 @@ import ColorWheel from './wheel';
 import { Color } from './color';
 
 const App: React.FunctionComponent = () => {
-    const [colors, setColors] = useState<Color[]>([]);
+    const [stripes, setStripes] = useState<{color: Color, id: any}[]>([]);
+
+    const generateId = (() => {
+        let autoInc = 0;
+        return () => autoInc++;
+    })();
+    const getRandomColor = (): Color => ({
+        r: Math.floor(Math.random() * 255),
+        g: Math.floor(Math.random() * 255),
+        b: Math.floor(Math.random() * 255),
+    });
 
     return <div className="page flexColumn">
         <div className="pageTop flexColumn">
             <Stripes
-                items={colors}
+                items={stripes}
                 onRemove={itemIndex => {
-                    const item = colors[itemIndex];
-                    setColors(prevColors => {
-                        const index = prevColors.findIndex(it => it === item);
+                    const item = stripes[itemIndex];
+                    setStripes(prevStripes => {
+                        const index = prevStripes.findIndex(it => it.id === item.id);
                         if (index === -1) {
-                            return prevColors;
+                            return prevStripes;
                         }
-                        return [...prevColors.slice(0, index), ...prevColors.slice(index + 1)];
+                        return [...prevStripes.slice(0, index), ...prevStripes.slice(index + 1)];
+                    });
+                }}
+                onReroll={itemIndex => {
+                    const item = stripes[itemIndex];
+                    setStripes(prevStripes => {
+                        const index = prevStripes.findIndex(it => it === item);
+                        if (index === -1) {
+                            return prevStripes;
+                        }
+                        return [
+                            ...prevStripes.slice(0, index),
+                            {
+                                ...prevStripes[index],
+                                color: getRandomColor(),
+                            },
+                            ...prevStripes.slice(index + 1),
+                        ];
                     });
                 }}
             />
@@ -26,10 +53,9 @@ const App: React.FunctionComponent = () => {
             <button
                 type="button"
                 onClick={() => {
-                    setColors(prevColors => [...prevColors, {
-                        r: Math.floor(Math.random() * 255),
-                        g: Math.floor(Math.random() * 255),
-                        b: Math.floor(Math.random() * 255),
+                    setStripes(prevStripes => [...prevStripes, {
+                        id: generateId(),
+                        color: getRandomColor(),
                     }]);
                 }}
                 style={{width: '100%'}}
@@ -37,7 +63,7 @@ const App: React.FunctionComponent = () => {
                 Add
             </button>
             <ColorWheel
-                items={colors}
+                items={stripes.map(stripe => stripe.color)}
                 size='8em'
             />
         </div>
