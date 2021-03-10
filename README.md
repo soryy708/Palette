@@ -14,7 +14,7 @@ Create a palette of colors.
       * The "Clockwise" button adds 3 tetradic colors to the palette, going clockwise
       * The "Counter-lockwise" button adds 3 tetradic colors to the palette, going counter-clockwise
     * The "Analogous" button adds 2 analogous colors to the palette
-    * The "Natural" button adds 2 natural colors to the palette
+    * The "Neutral" button adds 2 neutral colors to the palette
 * The colors in the palette are shown as stripes, and also on a hue wheel on the top right
 
 ## Glossary

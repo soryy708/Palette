@@ -114,7 +114,7 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
                         props.onAddColor(rotateHue(props.color, -30));
                     },
                 }, {
-                    text: 'Natural',
+                    text: 'Neutral',
                     onClick: () => {
                         props.onAddColor(rotateHue(props.color, +15));
                         props.onAddColor(rotateHue(props.color, -15));
