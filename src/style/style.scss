@@ -1,3 +1,5 @@
+@import 'stripes.scss';
+
 html {
     height: 100%;
 }
@@ -8,4 +10,43 @@ body {
     padding: 0;
     height: 100%;
     font-family: sans-serif;
+    background-color: #02030d;
+    color: #cef;
+}
+
+button {
+    font-size: 1em;
+    border: none;
+    background-color: #04060f;
+    color: #cef;
+    cursor: pointer;
+    padding: 0.125em 0.75em;
+
+    &:hover {
+        background-color: lighten(#04060f, 5%);
+    }
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+$pageWidth: 1280px;
+
+.page {
+    width: 100%;
+    max-width: $pageWidth;
+    min-height: 100vh;
+    margin: auto;
+    background-color: #000;
+    box-shadow: 0 0 16px #000;
+
+    @media screen and (max-width: $pageWidth) {
+        box-shadow: none;
+    }
+}
+
+.pageTop {
+    flex-grow: 1;
 }
