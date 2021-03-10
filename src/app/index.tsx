@@ -3,13 +3,13 @@ import Stripes from './stripes';
 import ColorWheel from './wheel';
 import { Color } from './color';
 
+const generateId = (() => {
+    let autoInc = 0;
+    return () => autoInc++;
+})();
+
 const App: React.FunctionComponent = () => {
     const [stripes, setStripes] = useState<{color: Color, id: any}[]>([]);
-
-    const generateId = (() => {
-        let autoInc = 0;
-        return () => autoInc++;
-    })();
 
     const getRandomColor = (): Color => ({
         r: Math.floor(Math.random() * 255),
