@@ -110,9 +110,9 @@ export const rgbToHsl = (color: RgbColor): HslColor => {
 const hslToRgb = (color: HslColor): RgbColor => {
     if (color.s === 0)  {
         return {
-            r: Math.round(color.l * 255),
-            g: Math.round(color.l * 255),
-            b: Math.round(color.l * 255),
+            r: color.l * 255,
+            g: color.l * 255,
+            b: color.l * 255,
         };
     }
 
@@ -142,9 +142,9 @@ const hslToRgb = (color: HslColor): RgbColor => {
     })();
 
     return {
-        r: Math.round((rt+m) * 255),
-        g: Math.round((gt+m) * 255),
-        b: Math.round((bt+m) * 255),
+        r: (rt+m) * 255,
+        g: (gt+m) * 255,
+        b: (bt+m) * 255,
     };
 };
 
