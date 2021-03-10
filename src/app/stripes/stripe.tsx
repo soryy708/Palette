@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Color, luminanceToPerceivedLightness, colorToLuminance } from '../color';
+import { Color, luminanceToPerceivedLightness, colorToLuminance, rotateHue } from '../color';
+import MenuButton from '../menuButton';
 
 type StripeProps = {
     color: Color;
     onRemove: () => void;
     onReroll: () => void;
+    onAddColor: (color: Color) => void;
 };
 
 const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
@@ -53,6 +55,48 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
             >
                 Reroll
             </button>
+            <MenuButton
+                text="Add harmony"
+                menuItems={[{
+                    text: 'Complementary',
+                    onClick: () => props.onAddColor(rotateHue(props.color, 180)),
+                }, {
+                    text: 'Triadic',
+                    onClick: () => {
+                        props.onAddColor(rotateHue(props.color, +60));
+                        props.onAddColor(rotateHue(props.color, -60));
+                    },
+                }, {
+                    text: 'Tetradic',
+                    menuItems: [{
+                        text: 'Clockwise',
+                        onClick: () => {
+                            props.onAddColor(rotateHue(props.color, +180));
+                            props.onAddColor(rotateHue(props.color, +60));
+                            props.onAddColor(rotateHue(props.color, +240));
+                        },
+                    }, {
+                        text: 'Counter-clockwise',
+                        onClick: () => {
+                            props.onAddColor(rotateHue(props.color, +180));
+                            props.onAddColor(rotateHue(props.color, -60));
+                            props.onAddColor(rotateHue(props.color, +120));
+                        },
+                    }],
+                }, {
+                    text: 'Analogous',
+                    onClick: () => {
+                        props.onAddColor(rotateHue(props.color, +30));
+                        props.onAddColor(rotateHue(props.color, -30));
+                    },
+                }, {
+                    text: 'Natural',
+                    onClick: () => {
+                        props.onAddColor(rotateHue(props.color, +15));
+                        props.onAddColor(rotateHue(props.color, -15));
+                    },
+                }]}
+            />
         </div>
     </div>;
 };

@@ -9,6 +9,7 @@ type StripesProps = {
     }[];
     onRemove: (itemIndex: number) => void;
     onReroll: (itemIndex: number) => void;
+    onAddColor: (color: Color) => void;
 };
 
 const Stripes: React.FunctionComponent<StripesProps> = (props: StripesProps) => {
@@ -19,6 +20,7 @@ const Stripes: React.FunctionComponent<StripesProps> = (props: StripesProps) => 
                 color={item.color}
                 onRemove={() => props.onRemove(i)}
                 onReroll={() => props.onReroll(i)}
+                onAddColor={props.onAddColor}
             />
         )}
     </div>;

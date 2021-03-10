@@ -1,8 +1,16 @@
-export type Color = {
+type HslColor = {
+    h: number;
+    s: number;
+    l: number;
+};
+
+type RgbColor = {
     r: number;
     g: number;
     b: number;
 };
+
+export type Color = RgbColor;
 
 /**
  * 
@@ -29,7 +37,7 @@ const rgbToLuminance = (r: number, g: number, b: number): number =>
     0.7152 * linearizeColor(g) +
     0.0722 * linearizeColor(b);
 
-export const colorToLuminance = (color: Color): number => rgbToLuminance(color.r, color.g, color.b);
+export const colorToLuminance = (color: RgbColor): number => rgbToLuminance(color.r, color.g, color.b);
 
 /**
  * 
@@ -44,13 +52,13 @@ export const luminanceToPerceivedLightness = (luminance: number): number => {
     }
 };
 
-export const getChroma = (color: Color): number => {
+export const getChroma = (color: RgbColor): number => {
     const max = Math.max(color.r/255, color.g/255, color.b/255);
     const min = Math.min(color.r/255, color.g/255, color.b/255);
     return max - min;
 };
 
-export const getHue = (color: Color): number => {
+export const getHue = (color: RgbColor): number => {
     const r = color.r / 255;
     const g = color.g / 255;
     const b = color.b / 255;
@@ -76,4 +84,74 @@ export const getHue = (color: Color): number => {
             return (segment + shift) * 60;
         }
     }
+};
+
+export const getSaturation = (color: RgbColor): number => {
+    const r = color.r / 255;
+    const g = color.g / 255;
+    const b = color.b / 255;
+    const max = Math.max(r, g, b);
+    if (max === 0) {
+        return 0;
+    }
+    return getChroma(color) / max;
+};
+
+export const rgbToHsl = (color: RgbColor): HslColor => {
+    return {
+        h: getHue(color),
+        s: getSaturation(color),
+        l: colorToLuminance(color),
+    };
+};
+
+const hslToRgb = (color: HslColor): RgbColor => {
+    if (color.s === 0)  {
+        return {
+            r: Math.round(color.l * 255),
+            g: Math.round(color.l * 255),
+            b: Math.round(color.l * 255),
+        };
+    }
+
+    const c = (1 - Math.abs(2 * color.l - 1)) * color.s;
+    const x = c * (1 - Math.abs((color.h / 60) % 2 - 1));
+    const m = color.l - c/2;
+
+    const [rt, gt, bt] = (() => {
+        if (0 <= color.h && color.h < 60) {
+            return [c, x, 0];
+        }
+        if (60 <= color.h && color.h < 120) {
+            return [x, c, 0];
+        }
+        if (120 <= color.h && color.h < 180) {
+            return [0, c, x];
+        }
+        if (180 <= color.h && color.h < 240) {
+            return [0, x, c];
+        }
+        if (240 <= color.h && color.h < 300) {
+            return [x, 0, c];
+        }
+        if (300 <= color.h && color.h < 360) {
+            return [c, 0, x];
+        }
+    })();
+
+    return {
+        r: Math.round((rt+m) * 255),
+        g: Math.round((gt+m) * 255),
+        b: Math.round((bt+m) * 255),
+    };
+};
+
+export const rotateHue = (color: RgbColor, degrees: number): RgbColor => {
+    const originalHsl = rgbToHsl(color);
+    const rotatedHue = (originalHsl.h + 360 + degrees) % 360;
+    return hslToRgb({
+        h: rotatedHue,
+        s: originalHsl.s,
+        l: originalHsl.l,
+    });
 };

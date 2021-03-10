@@ -46,10 +46,10 @@ const App: React.FunctionComponent = () => {
         });
     };
 
-    const addStripe = () => {
+    const addStripe = (color: Color = null) => {
         setStripes(prevStripes => [...prevStripes, {
             id: generateId(),
-            color: getRandomColor(),
+            color: color || getRandomColor(),
         }]);
     };
 
@@ -59,12 +59,13 @@ const App: React.FunctionComponent = () => {
                 items={stripes}
                 onRemove={itemIndex => removeStripe(itemIndex)}
                 onReroll={itemIndex => rerollStripe(itemIndex)}
+                onAddColor={color => addStripe(color)}
             />
         </div>
         <div className="pageBottom">
             <button
                 type="button"
-                onClick={addStripe}
+                onClick={() => addStripe()}
                 style={{width: '100%'}}
             >
                 Add
