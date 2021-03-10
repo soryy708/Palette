@@ -12,6 +12,8 @@ type RgbColor = {
 
 export type Color = RgbColor;
 
+export type ColorSpace = 'rgb' | 'hsl';
+
 /**
  * 
  * @param colorChannel between 0 and 255

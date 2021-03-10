@@ -53,3 +53,16 @@ $pageWidth: 1280px;
 .pageTop {
     flex-grow: 1;
 }
+
+.pageBottom {
+    display: flex;
+    flex-direction: row;
+
+    .pageBottomItem {
+        flex-grow: 1;
+
+        button {
+            width: 100%;
+        }
+    }
+}

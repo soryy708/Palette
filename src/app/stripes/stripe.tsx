@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Color, luminanceToPerceivedLightness, colorToLuminance, rotateHue } from '../color';
+import { Color, ColorSpace, luminanceToPerceivedLightness, colorToLuminance, rotateHue, rgbToHsl } from '../color';
 import MenuButton from '../menuButton';
 
 type StripeProps = {
     color: Color;
+    colorSpace: ColorSpace;
     onRemove: () => void;
     onReroll: () => void;
     onAddColor: (color: Color) => void;
@@ -28,12 +29,28 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
     };
     const colorToCss = (color: Color) => `rgb(${color.r}, ${color.g}, ${color.b})`;
 
+    const renderLabel = () => {
+        switch (props.colorSpace) {
+            case 'rgb': {
+                return <React.Fragment>
+                    RGB ({Math.round(props.color.r)}, {Math.round(props.color.g)}, {Math.round(props.color.b)})
+                </React.Fragment>;
+            }
+            case 'hsl': {
+                const hsl = rgbToHsl(props.color);
+                return <React.Fragment>
+                    HSL ({Math.round(hsl.h)}, {Math.round(hsl.s * 100)}%, {Math.round(hsl.l * 100)}%)
+                </React.Fragment>;
+            }
+        }
+    };
+
     return <div
         className={'stripe' + (active ? ' active' : '')}
         style={{backgroundColor: colorToCss(getBackgroundColor())}}
     >
         <span style={{color: colorToCss(getTextColor())}}>
-            RGB ({props.color.r}, {props.color.g}, {props.color.b})
+            {renderLabel()}
         </span>
         <div className="buttons">
             <button

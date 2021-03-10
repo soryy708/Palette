@@ -1,12 +1,13 @@
 import React from 'react';
 import Stripe from './stripe';
-import { Color } from '../color';
+import { Color, ColorSpace } from '../color';
 
 type StripesProps = {
     items?: {
         id: any;
         color: Color;
     }[];
+    colorSpace: ColorSpace;
     onRemove: (itemIndex: number) => void;
     onReroll: (itemIndex: number) => void;
     onAddColor: (color: Color) => void;
@@ -18,6 +19,7 @@ const Stripes: React.FunctionComponent<StripesProps> = (props: StripesProps) => 
             <Stripe
                 key={item.id}
                 color={item.color}
+                colorSpace={props.colorSpace}
                 onRemove={() => props.onRemove(i)}
                 onReroll={() => props.onReroll(i)}
                 onAddColor={props.onAddColor}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Stripes from './stripes';
 import ColorWheel from './wheel';
-import { Color } from './color';
+import MenuButton from './menuButton';
+import { Color, ColorSpace } from './color';
 
 const generateId = (() => {
     let autoInc = 0;
@@ -10,6 +11,7 @@ const generateId = (() => {
 
 const App: React.FunctionComponent = () => {
     const [stripes, setStripes] = useState<{color: Color, id: any}[]>([]);
+    const [colorSpace, setColorSpace] = useState<ColorSpace>('rgb');
 
     const getRandomColor = (): Color => ({
         r: Math.floor(Math.random() * 255),
@@ -60,16 +62,29 @@ const App: React.FunctionComponent = () => {
                 onRemove={itemIndex => removeStripe(itemIndex)}
                 onReroll={itemIndex => rerollStripe(itemIndex)}
                 onAddColor={color => addStripe(color)}
+                colorSpace={colorSpace}
             />
         </div>
         <div className="pageBottom">
             <button
+                className="pageBottomItem"
                 type="button"
                 onClick={() => addStripe()}
-                style={{width: '100%'}}
             >
                 Add
             </button>
+            <div className="pageBottomItem">
+                <MenuButton
+                    text={`Color space: ${String(colorSpace.toUpperCase())}`}
+                    menuItems={[{
+                        text: 'RGB',
+                        onClick: () => setColorSpace('rgb'),
+                    }, {
+                        text: 'HSL',
+                        onClick: () => setColorSpace('hsl'),
+                    }]}
+                />
+            </div>
         </div>
         <div style={{position: 'absolute', top: '0.5em', right: '0.5em', boxShadow: '0 0 8px #000', borderRadius: '50%'}}>
             <ColorWheel
