@@ -10,9 +10,11 @@ type RgbColor = {
     b: number;
 };
 
+type HexColor = string;
+
 export type Color = RgbColor;
 
-export type ColorSpace = 'rgb' | 'hsl';
+export type ColorSpace = 'rgb' | 'hsl' | 'hex';
 
 /**
  * 
@@ -156,4 +158,8 @@ export const rotateHue = (color: RgbColor, degrees: number): RgbColor => {
         s: originalHsl.s,
         l: originalHsl.l,
     });
+};
+
+export const rgbToHex = (color: RgbColor): HexColor => {
+    return `#${Math.round(color.r).toString(16)}${Math.round(color.g).toString(16)}${Math.round(color.b).toString(16)}`.toUpperCase();
 };

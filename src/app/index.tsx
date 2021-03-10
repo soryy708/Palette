@@ -84,6 +84,9 @@ const App: React.FunctionComponent = () => {
                     }, {
                         text: 'HSL',
                         onClick: () => setColorSpace('hsl'),
+                    }, {
+                        text: 'HEX',
+                        onClick: () => setColorSpace('hex'),
                     }]}
                 />
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Color, ColorSpace, luminanceToPerceivedLightness, colorToLuminance, rotateHue, rgbToHsl } from '../color';
+import { Color, ColorSpace, luminanceToPerceivedLightness, colorToLuminance, rotateHue, rgbToHsl, rgbToHex } from '../color';
 import MenuButton from '../menuButton';
 
 type StripeProps = {
@@ -41,6 +41,11 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
                 const hsl = rgbToHsl(props.color);
                 return <React.Fragment>
                     HSL ({Math.round(hsl.h)}, {Math.round(hsl.s * 100)}%, {Math.round(hsl.l * 100)}%)
+                </React.Fragment>;
+            }
+            case 'hex': {
+                return <React.Fragment>
+                    {rgbToHex(props.color)}
                 </React.Fragment>;
             }
         }
