@@ -36,6 +36,7 @@ button {
 $pageWidth: 1280px;
 
 .page {
+    position: relative;
     width: 100%;
     max-width: $pageWidth;
     min-height: 100vh;
