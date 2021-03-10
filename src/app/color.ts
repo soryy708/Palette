@@ -44,3 +44,36 @@ export const luminanceToPerceivedLightness = (luminance: number): number => {
     }
 };
 
+export const getChroma = (color: Color): number => {
+    const max = Math.max(color.r/255, color.g/255, color.b/255);
+    const min = Math.min(color.r/255, color.g/255, color.b/255);
+    return max - min;
+};
+
+export const getHue = (color: Color): number => {
+    const r = color.r / 255;
+    const g = color.g / 255;
+    const b = color.b / 255;
+    const c = getChroma(color);
+    const max = Math.max(r, g, b);
+    if (c === 0) {
+        return 0;
+    }
+    switch (max) {
+        case r: {
+            const segment = (g-b) / c;
+            const shift = segment < 0 ? 360 / 60 : 0;
+            return (segment + shift) * 60;
+        }
+        case g: {
+            const segment = (b-r) / c;
+            const shift = 120/60;
+            return (segment + shift) * 60;
+        }
+        case b: {
+            const segment = (r-g)/c;
+            const shift = 240/60;
+            return (segment + shift) * 60;
+        }
+    }
+};

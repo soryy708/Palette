@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import Stripes from './stripes';
+import ColorWheel from './wheel';
 import { Color } from './color';
 
 const App: React.FunctionComponent = () => {
-    const [stripes, setStripes] = useState<{color: Color}[]>([]);
+    const [colors, setColors] = useState<Color[]>([]);
 
     return <div className="page flexColumn">
         <div className="pageTop flexColumn">
             <Stripes
-                items={stripes}
+                items={colors}
                 onRemove={itemIndex => {
-                    const item = stripes[itemIndex];
-                    setStripes(prevStripes => {
-                        const index = prevStripes.findIndex(it => it === item);
+                    const item = colors[itemIndex];
+                    setColors(prevColors => {
+                        const index = prevColors.findIndex(it => it === item);
                         if (index === -1) {
-                            return prevStripes;
+                            return prevColors;
                         }
-                        return [...prevStripes.slice(0, index), ...prevStripes.slice(index + 1)];
+                        return [...prevColors.slice(0, index), ...prevColors.slice(index + 1)];
                     });
                 }}
             />
@@ -25,16 +26,20 @@ const App: React.FunctionComponent = () => {
             <button
                 type="button"
                 onClick={() => {
-                    setStripes(prevStripes => [...prevStripes, {color: {
+                    setColors(prevColors => [...prevColors, {
                         r: Math.floor(Math.random() * 255),
                         g: Math.floor(Math.random() * 255),
                         b: Math.floor(Math.random() * 255),
-                    }}]);
+                    }]);
                 }}
                 style={{width: '100%'}}
             >
                 Add
             </button>
+            <ColorWheel
+                items={colors}
+                size='8em'
+            />
         </div>
     </div>;
 };

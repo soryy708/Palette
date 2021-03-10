@@ -2,12 +2,8 @@ import React from 'react';
 import Stripe from './stripe';
 import { Color } from '../color';
 
-type Item = {
-    color: Color;
-};
-
 type StripesProps = {
-    items?: Item[];
+    items?: Color[];
     onRemove: (itemIndex: number) => void;
 };
 
@@ -16,7 +12,7 @@ const Stripes: React.FunctionComponent<StripesProps> = (props: StripesProps) => 
         {(props.items || []).map((item, i) =>
             <Stripe
                 key={JSON.stringify(item)}
-                color={item.color}
+                color={item}
                 onRemove={() => props.onRemove(i)}
             />
         )}
