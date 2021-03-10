@@ -14,9 +14,9 @@ const App: React.FunctionComponent = () => {
     const [colorSpace, setColorSpace] = useState<ColorSpace>('rgb');
 
     const getRandomColor = (): Color => ({
-        r: Math.floor(Math.random() * 255),
-        g: Math.floor(Math.random() * 255),
-        b: Math.floor(Math.random() * 255),
+        r: Math.random() * 255,
+        g: Math.random() * 255,
+        b: Math.random() * 255,
     });
 
     const removeStripe = (stripeIndex: number) => {
