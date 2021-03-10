@@ -70,7 +70,7 @@ const App: React.FunctionComponent = () => {
                 Add
             </button>
         </div>
-        <div style={{position: 'absolute', top: '0', right: '0', borderRadius: '50%'}}>
+        <div style={{position: 'absolute', top: '0.5em', right: '0.5em', boxShadow: '0 0 8px #000', borderRadius: '50%'}}>
             <ColorWheel
                 items={stripes.map(stripe => stripe.color)}
                 size='8em'
