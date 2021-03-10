@@ -8,6 +8,7 @@ type StripeProps = {
     onRemove: () => void;
     onReroll: () => void;
     onAddColor: (color: Color) => void;
+    onMouseOver?: () => void;
 };
 
 const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
@@ -48,6 +49,7 @@ const Stripe: React.FunctionComponent<StripeProps> = (props: StripeProps) => {
     return <div
         className={'stripe' + (active ? ' active' : '')}
         style={{backgroundColor: colorToCss(getBackgroundColor())}}
+        onMouseOver={props.onMouseOver}
     >
         <span style={{color: colorToCss(getTextColor())}}>
             {renderLabel()}

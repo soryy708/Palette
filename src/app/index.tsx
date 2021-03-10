@@ -11,6 +11,7 @@ const generateId = (() => {
 
 const App: React.FunctionComponent = () => {
     const [stripes, setStripes] = useState<{color: Color, id: any}[]>([]);
+    const [selectedStripe, setSelectedStripe] = useState(NaN);
     const [colorSpace, setColorSpace] = useState<ColorSpace>('rgb');
 
     const getRandomColor = (): Color => ({
@@ -63,6 +64,7 @@ const App: React.FunctionComponent = () => {
                 onReroll={itemIndex => rerollStripe(itemIndex)}
                 onAddColor={color => addStripe(color)}
                 colorSpace={colorSpace}
+                onItemHover={(itemIndex) => setSelectedStripe(itemIndex)}
             />
         </div>
         <div className="pageBottom">
@@ -90,6 +92,7 @@ const App: React.FunctionComponent = () => {
             <ColorWheel
                 items={stripes.map(stripe => stripe.color)}
                 size='8em'
+                highlightedItem={selectedStripe}
             />
         </div>
     </div>;

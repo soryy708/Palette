@@ -5,6 +5,7 @@ import { Color } from '../color';
 type WheelProps = {
     items: Color[];
     size: string;
+    highlightedItem: number;
 };
 
 const Wheel: React.FunctionComponent<WheelProps> = (props: WheelProps) => {
@@ -15,7 +16,11 @@ const Wheel: React.FunctionComponent<WheelProps> = (props: WheelProps) => {
             height: props.size,
         }}
     >
-        {(props.items || []).map(color => <Line key={JSON.stringify(color)} color={color}/>)}
+        {(props.items || []).map((color, i) => <Line
+            key={JSON.stringify(color)}
+            color={color}
+            isHighlighted={!isNaN(props.highlightedItem) && i === props.highlightedItem}
+        />)}
     </div>;
 };
 
