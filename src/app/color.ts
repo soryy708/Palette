@@ -90,22 +90,25 @@ export const getHue = (color: RgbColor): number => {
     }
 };
 
+const getLightness = (color: RgbColor): number => {
+    const max = Math.max(color.r/255, color.g/255, color.b/255);
+    const min = Math.min(color.r/255, color.g/255, color.b/255);
+    return (max + min) / 2;
+};
+
 export const getSaturation = (color: RgbColor): number => {
-    const r = color.r / 255;
-    const g = color.g / 255;
-    const b = color.b / 255;
-    const max = Math.max(r, g, b);
-    if (max === 0) {
+    const chroma = getChroma(color);
+    if (chroma === 0) {
         return 0;
     }
-    return getChroma(color) / max;
+    return chroma / (1 - Math.abs(2 * getLightness(color) - 1));
 };
 
 export const rgbToHsl = (color: RgbColor): HslColor => {
     return {
         h: getHue(color),
         s: getSaturation(color),
-        l: colorToLuminance(color),
+        l: getLightness(color),
     };
 };
 
