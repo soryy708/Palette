@@ -3,12 +3,16 @@ import { stringifyColor, rgbToHex, rgbToHsl, hslToRgb, Color, RgbColor, HexColor
 
 const withinDelta = (a: number, b: number, delta = 0.001) => Math.abs(a - b) < delta;
 
-const compareHsl = (c1: HslColor, c2: HslColor, delta = 0.001) => {
-    return withinDelta(c1.h, c2.h, delta) && withinDelta(c1.s, c2.s, delta) && withinDelta(c1.l, c2.l, delta);
+const assertHslEqual = (c1: HslColor, c2: HslColor, delta = 0.001) => {
+    assert.ok(withinDelta(c1.h, c2.h, delta), `${c1.h} ~= ${c2.h}`);
+    assert.ok(withinDelta(c1.s, c2.s, delta), `${c1.s} ~= ${c2.s}`);
+    assert.ok(withinDelta(c1.l, c2.l, delta), `${c1.l} ~= ${c2.l}`);
 };
 
-const compareRgb = (c1: RgbColor, c2: RgbColor, delta = 0.001) => {
-    return withinDelta(c1.r, c2.r, delta) && withinDelta(c1.g, c2.g, delta) && withinDelta(c1.b, c2.b, delta);
+const assertRgbEqual = (c1: RgbColor, c2: RgbColor, delta = 0.001) => {
+    assert.ok(withinDelta(c1.r, c2.r, delta), `${c1.r} ~= ${c2.r}`);
+    assert.ok(withinDelta(c1.g, c2.g, delta), `${c1.g} ~= ${c2.g}`);
+    assert.ok(withinDelta(c1.b, c2.b, delta), `${c1.b} ~= ${c2.b}`);
 };
 
 describe('color', () => {
@@ -128,7 +132,7 @@ describe('color', () => {
         cases.forEach(testCase => {
             it(`${stringifyColor(testCase.input)} => ${stringifyColor(testCase.expected)}`, () => {
                 const actual = rgbToHsl(testCase.input);
-                assert.ok(compareHsl(actual, testCase.expected));
+                assertHslEqual(actual, testCase.expected);
             });
         });
     });
@@ -172,7 +176,7 @@ describe('color', () => {
         cases.forEach(testCase => {
             it(`${stringifyColor(testCase.input)} => ${stringifyColor(testCase.expected)}`, () => {
                 const actual = hslToRgb(testCase.input);
-                assert.ok(compareRgb(actual, testCase.expected));
+                assertRgbEqual(actual, testCase.expected);
             });
         });
     });
