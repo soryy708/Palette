@@ -171,5 +171,9 @@ export const stringifyColor = (color: RgbColor | HslColor): string => {
 };
 
 export const rgbToHex = (color: RgbColor): HexColor => {
-    return `#${Math.round(color.r).toString(16)}${Math.round(color.g).toString(16)}${Math.round(color.b).toString(16)}`.toUpperCase();
+    const r = Math.round(color.r).toString(16).toUpperCase();
+    const g = Math.round(color.g).toString(16).toUpperCase();
+    const b = Math.round(color.b).toString(16).toUpperCase();
+    const dupeChar = (ch: string) => ch.length === 1 ? ch+ch : ch;
+    return `#${dupeChar(r)}${dupeChar(g)}${dupeChar(b)}`;
 };
