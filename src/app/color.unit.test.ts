@@ -1,6 +1,16 @@
 import { strict as assert } from 'assert';
 import { stringifyColor, rgbToHex, rgbToHsl, hslToRgb, Color, RgbColor, HexColor, HslColor } from './color';
 
+const withinDelta = (a: number, b: number, delta = 0.001) => Math.abs(a - b) < delta;
+
+const compareHsl = (c1: HslColor, c2: HslColor, delta = 0.001) => {
+    return withinDelta(c1.h, c2.h, delta) && withinDelta(c1.s, c2.s, delta) && withinDelta(c1.l, c2.l, delta);
+};
+
+const compareRgb = (c1: RgbColor, c2: RgbColor, delta = 0.001) => {
+    return withinDelta(c1.r, c2.r, delta) && withinDelta(c1.g, c2.g, delta) && withinDelta(c1.b, c2.b, delta);
+};
+
 describe('color', () => {
     describe('stringifyColor', () => {
         const cases: {input: Color; expected: string}[] = [{
@@ -118,7 +128,7 @@ describe('color', () => {
         cases.forEach(testCase => {
             it(`${stringifyColor(testCase.input)} => ${stringifyColor(testCase.expected)}`, () => {
                 const actual = rgbToHsl(testCase.input);
-                assert.deepStrictEqual(actual, testCase.expected);
+                assert.ok(compareHsl(actual, testCase.expected));
             });
         });
     });
@@ -162,7 +172,7 @@ describe('color', () => {
         cases.forEach(testCase => {
             it(`${stringifyColor(testCase.input)} => ${stringifyColor(testCase.expected)}`, () => {
                 const actual = hslToRgb(testCase.input);
-                assert.deepStrictEqual(actual, testCase.expected);
+                assert.ok(compareRgb(actual, testCase.expected));
             });
         });
     });
