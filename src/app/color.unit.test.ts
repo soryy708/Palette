@@ -138,34 +138,34 @@ describe('color', () => {
             input: {h: 0, s: 0, l: 0},
             expected: {r: 0, g: 0, b: 0},
         }, {
-            input: {h: 0, s: 100, l: 50},
+            input: {h: 0, s: 1, l: 0.5},
             expected: {r: 255, g: 0, b: 0},
         }, {
-            input: {h: 120, s: 100, l: 50},
+            input: {h: 120, s: 1, l: 0.5},
             expected: {r: 0, g: 255, b: 0},
         }, {
-            input: {h: 240, s: 100, l: 50},
+            input: {h: 240, s: 1, l: 0.5},
             expected: {r: 0, g: 0, b: 255},
         }, {
-            input: {h: 60, s: 100, l: 50},
+            input: {h: 60, s: 1, l: 0.5},
             expected: {r: 255, g: 255, b: 0},
         }, {
-            input: {h: 300, s: 100, l: 50},
+            input: {h: 300, s: 1, l: 0.5},
             expected: {r: 255, g: 0, b: 255},
         }, {
-            input: {h: 180, s: 100, l: 50},
+            input: {h: 180, s: 1, l: 0.5},
             expected: {r: 0, g: 255, b: 255},
         }, {
-            input: {h: 0, s: 0, l: 100},
+            input: {h: 0, s: 0, l: 1},
             expected: {r: 255, g: 255, b: 255},
         }, {
-            input: {h: 220, s: 60, l: 31.4},
+            input: {h: 220, s: 0.6, l: 0.314},
             expected: {r: 32, g: 64, b: 128},
         }, {
             input: {h: 0, s: 0, l: 0},
             expected: {r: 0, g: 0, b: 0},
         }, {
-            input: {h: 240, s: 100, l: 75.1},
+            input: {h: 240, s: 1, l: 0.751},
             expected: {r: 128, g: 128, b: 255},
         }];
 
