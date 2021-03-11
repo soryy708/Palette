@@ -8,13 +8,16 @@
         "build-dev": "cross-env BUILD_ENV=dev npm run build",
         "build-prod": "cross-env BUILD_ENV=production npm run build",
         "watch": "node script/build/watch",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "test": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\": \\\"commonjs\\\" }\" mocha --require ts-node/register src/**/*.test.ts --exit",
+        "coverage": "cross-env TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\": \\\"commonjs\\\" }\" nyc mocha --require ts-node/register src/**/*.test.ts --exit"
     },
     "dependencies": {
         "react": "^17.0.1",
         "react-dom": "^17.0.1"
     },
     "devDependencies": {
+        "@types/mocha": "^8.2.1",
         "@types/react": "^17.0.3",
         "@types/react-dom": "^17.0.2",
         "@typescript-eslint/eslint-plugin": "^4.17.0",
@@ -26,7 +29,9 @@
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-react": "^7.22.0",
         "file-loader": "^6.2.0",
+        "mocha": "^8.3.1",
         "node-sass": "^5.0.0",
+        "nyc": "^15.1.0",
         "sass-loader": "^11.0.1",
         "style-loader": "^2.0.0",
         "ts-loader": "^8.0.17",

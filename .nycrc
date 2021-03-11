@@ -1,0 +1,6 @@
+{
+    "all": "true",
+    "extension": [".js", ".jsx", ".ts", ".tsx"],
+    "include": ["src/**"],
+    "skip-full": true
+}

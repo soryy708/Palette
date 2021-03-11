@@ -1,16 +1,16 @@
-type HslColor = {
+export type HslColor = {
     h: number;
     s: number;
     l: number;
 };
 
-type RgbColor = {
+export type RgbColor = {
     r: number;
     g: number;
     b: number;
 };
 
-type HexColor = string;
+export type HexColor = string;
 
 export type Color = RgbColor;
 
@@ -109,7 +109,7 @@ export const rgbToHsl = (color: RgbColor): HslColor => {
     };
 };
 
-const hslToRgb = (color: HslColor): RgbColor => {
+export const hslToRgb = (color: HslColor): RgbColor => {
     if (color.s === 0)  {
         return {
             r: color.l * 255,
@@ -158,6 +158,16 @@ export const rotateHue = (color: RgbColor, degrees: number): RgbColor => {
         s: originalHsl.s,
         l: originalHsl.l,
     });
+};
+
+export const stringifyColor = (color: RgbColor | HslColor): string => {
+    const asRgb = color as RgbColor;
+    if (asRgb.r !== undefined && asRgb.g !== undefined && asRgb.b !== undefined) {
+        return `(${Math.round(asRgb.r)}, ${Math.round(asRgb.g)}, ${Math.round(asRgb.b)})`;
+    }
+
+    const asHsl = color as HslColor;
+    return `(${Math.round(asHsl.h)}, ${Math.round(asHsl.s*100)}, ${Math.round(asHsl.l*100)})`;
 };
 
 export const rgbToHex = (color: RgbColor): HexColor => {
