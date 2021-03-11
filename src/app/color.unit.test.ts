@@ -9,7 +9,7 @@ const assertHslEqual = (c1: HslColor, c2: HslColor, delta = 0.001) => {
     assert.ok(withinDelta(c1.l, c2.l, delta), `${c1.l} ~= ${c2.l}`);
 };
 
-const assertRgbEqual = (c1: RgbColor, c2: RgbColor, delta = 0.001) => {
+const assertRgbEqual = (c1: RgbColor, c2: RgbColor, delta = 0.5) => {
     assert.ok(withinDelta(c1.r, c2.r, delta), `${c1.r} ~= ${c2.r}`);
     assert.ok(withinDelta(c1.g, c2.g, delta), `${c1.g} ~= ${c2.g}`);
     assert.ok(withinDelta(c1.b, c2.b, delta), `${c1.b} ~= ${c2.b}`);
